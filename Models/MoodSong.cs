@@ -1,0 +1,30 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MoodPlay.API.Models
+{
+    [Table("MoodSongs")]
+    public class MoodSong
+    {
+        [Key]
+        public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Required]
+        public Guid MoodId { get; set; }
+
+        [Required]
+        public Guid SongId { get; set; }
+
+        [Column(TypeName = "decimal(3,2)")]
+        public decimal? RelevanceScore { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        // Navigation properties
+        [ForeignKey("MoodId")]
+        public virtual Mood Mood { get; set; } = null!;
+
+        [ForeignKey("SongId")]
+        public virtual Song Song { get; set; } = null!;
+    }
+}
