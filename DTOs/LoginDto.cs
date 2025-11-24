@@ -9,5 +9,6 @@ namespace MoodPlay.API.DTOs
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; } = string.Empty;
+        public string Username { get; internal set; }
     }
 }
