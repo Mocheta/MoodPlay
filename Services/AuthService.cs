@@ -39,8 +39,7 @@ namespace MoodPlay.API.Services
             {
                 Email = registerDto.Email,
                 Username = registerDto.Username,
-                PasswordHash = passwordHash,
-                DisplayName = registerDto.DisplayName ?? registerDto.Username
+                PasswordHash = passwordHash
             };
 
             _context.Users.Add(user);
@@ -54,7 +53,6 @@ namespace MoodPlay.API.Services
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                DisplayName = user.DisplayName,
                 Token = token
             };
         }
@@ -70,10 +68,6 @@ namespace MoodPlay.API.Services
                 return null;
             }
 
-            // Update last login
-            user.LastLogin = DateTime.UtcNow;
-            await _context.SaveChangesAsync();
-
             // Generate JWT token
             var token = GenerateJwtToken(user);
 
@@ -82,9 +76,6 @@ namespace MoodPlay.API.Services
                 Id = user.Id,
                 Email = user.Email,
                 Username = user.Username,
-                DisplayName = user.DisplayName,
-                LastLogin = user.LastLogin,
-                SpotifyId = user.SpotifyId,
                 Token = token
             };
         }
@@ -133,10 +124,7 @@ namespace MoodPlay.API.Services
             {
                 Id = user.Id,
                 Email = user.Email,
-                Username = user.Username,
-                DisplayName = user.DisplayName,
-                LastLogin = user.LastLogin,
-                SpotifyId = user.SpotifyId
+                Username = user.Username
             };
         }
     }

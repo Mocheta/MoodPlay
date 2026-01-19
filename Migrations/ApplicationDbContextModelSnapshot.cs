@@ -168,35 +168,17 @@ namespace MoodPlay.API.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("DisplayName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("displayname");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("email");
 
-                    b.Property<DateTime?>("LastLogin")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("lastlogin");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("passwordhash");
-
-                    b.Property<string>("SpotifyAccessToken")
-                        .HasColumnType("text")
-                        .HasColumnName("spotifyaccesstoken");
-
-                    b.Property<string>("SpotifyId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("spotifyid");
 
                     b.Property<string>("Username")
                         .IsRequired()

@@ -34,10 +34,6 @@ namespace MoodPlay.API.Data
                 entity.Property(e => e.Email).HasColumnName("email");
                 entity.Property(e => e.Username).HasColumnName("username");
                 entity.Property(e => e.PasswordHash).HasColumnName("passwordhash");
-                entity.Property(e => e.DisplayName).HasColumnName("displayname");
-                entity.Property(e => e.LastLogin).HasColumnName("lastlogin");
-                entity.Property(e => e.SpotifyId).HasColumnName("spotifyid");
-                entity.Property(e => e.SpotifyAccessToken).HasColumnName("spotifyaccesstoken");
             });
 
             // Configure Mood column mappings

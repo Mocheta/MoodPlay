@@ -22,16 +22,6 @@ namespace MoodPlay.API.Models
         [MaxLength(255)]
         public string PasswordHash { get; set; } = string.Empty;
 
-        [MaxLength(100)]
-        public string? DisplayName { get; set; }
-
-        public DateTime? LastLogin { get; set; }
-
-        [MaxLength(100)]
-        public string? SpotifyId { get; set; }
-
-        public string? SpotifyAccessToken { get; set; }
-
         // Navigation properties
         public virtual ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
     }

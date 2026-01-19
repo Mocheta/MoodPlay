@@ -113,9 +113,9 @@ namespace MoodPlay.API.Controllers
             }
 
             var user = await _authService.GetUserByIdAsync(userId);
-            if (user == null || string.IsNullOrEmpty(user.SpotifyAccessToken))
+            if (user == null)
             {
-                return BadRequest(new { message = "User not connected to Spotify" });
+                return BadRequest(new { message = "User not found" });
             }
 
             // Note: You'll need to store refresh token separately to use this endpoint

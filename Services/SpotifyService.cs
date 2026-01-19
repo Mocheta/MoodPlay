@@ -156,10 +156,7 @@ namespace MoodPlay.API.Services
                 if (user == null)
                     return false;
 
-                user.SpotifyId = spotifyId;
-                user.SpotifyAccessToken = accessToken;
-                // Note: Refresh token should be stored securely, consider encrypting it
-                // For now, storing in the same field (you might want a separate field)
+                // Spotify integration columns removed - functionality disabled
                 await _context.SaveChangesAsync();
 
                 return true;
@@ -179,8 +176,7 @@ namespace MoodPlay.API.Services
                 if (user == null)
                     return false;
 
-                user.SpotifyId = null;
-                user.SpotifyAccessToken = null;
+                // Spotify integration columns removed - functionality disabled
                 await _context.SaveChangesAsync();
 
                 return true;

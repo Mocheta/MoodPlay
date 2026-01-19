@@ -16,8 +16,5 @@ namespace MoodPlay.API.DTOs
         [Required(ErrorMessage = "Password is required")]
         [MinLength(6, ErrorMessage = "Password must be at least 6 characters")]
         public string Password { get; set; } = string.Empty;
-
-        [MaxLength(100)]
-        public string? DisplayName { get; set; }
     }
 }
