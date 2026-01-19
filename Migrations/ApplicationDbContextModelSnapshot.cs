@@ -118,11 +118,6 @@ namespace MoodPlay.API.Migrations
                         .HasColumnType("character varying(255)")
                         .HasColumnName("album");
 
-                    b.Property<string>("AppleMusicId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("applemusicid");
-
                     b.Property<string>("Artist")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -184,11 +179,6 @@ namespace MoodPlay.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    b.Property<string>("AppleMusicId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("applemusicid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")

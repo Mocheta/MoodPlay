@@ -25,9 +25,6 @@ namespace MoodPlay.API.Models
         [MaxLength(100)]
         public string? SpotifyUri { get; set; }
 
-        [MaxLength(100)]
-        public string? AppleMusicId { get; set; }
-
         public int? ReleaseYear { get; set; }
 
         [MaxLength(100)]

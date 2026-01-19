@@ -34,9 +34,6 @@ namespace MoodPlay.API.Models
 
         public string? SpotifyAccessToken { get; set; }
 
-        [MaxLength(100)]
-        public string? AppleMusicId { get; set; }
-
         // Navigation properties
         public virtual ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
     }

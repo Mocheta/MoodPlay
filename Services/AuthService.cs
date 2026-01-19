@@ -88,7 +88,6 @@ namespace MoodPlay.API.Services
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
                 SpotifyId = user.SpotifyId,
-                AppleMusicId = user.AppleMusicId,
                 Token = token
             };
         }
@@ -141,8 +140,7 @@ namespace MoodPlay.API.Services
                 DisplayName = user.DisplayName,
                 CreatedAt = user.CreatedAt,
                 LastLogin = user.LastLogin,
-                SpotifyId = user.SpotifyId,
-                AppleMusicId = user.AppleMusicId
+                SpotifyId = user.SpotifyId
             };
         }
     }
