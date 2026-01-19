@@ -46,23 +46,29 @@ namespace MoodPlay.API.Services
             if (session == null)
                 return null;
 
+            var moodDto = session.Mood != null ? new MoodDto
+            {
+                Id = session.Mood.Id,
+                Name = session.Mood.Name,
+                Slug = session.Mood.Slug,
+                Description = session.Mood.Description,
+                IconName = session.Mood.IconName,
+                ColorHex = session.Mood.ColorHex,
+                Category = session.Mood.Category
+            } : null;
+
             return new SessionDto
             {
                 Id = session.Id,
+                UserId = session.UserId,
                 Mode = session.Mode,
-                Mood = session.Mood != null ? new MoodDto
-                {
-                    Id = session.Mood.Id,
-                    Name = session.Mood.Name,
-                    Slug = session.Mood.Slug,
-                    Description = session.Mood.Description,
-                    IconName = session.Mood.IconName,
-                    ColorHex = session.Mood.ColorHex,
-                    Category = session.Mood.Category
-                } : null,
+                MoodId = session.MoodId,
+                MoodName = moodDto?.Name,
+                Mood = moodDto,
                 CustomPrompt = session.CustomPrompt,
                 DrinkLevel = session.DrinkLevel,
-                StartedAt = session.StartedAt
+                StartedAt = session.StartedAt,
+                EndedAt = session.EndedAt
             };
         }
 
@@ -75,7 +81,10 @@ namespace MoodPlay.API.Services
                 .Select(s => new SessionDto
                 {
                     Id = s.Id,
+                    UserId = s.UserId,
                     Mode = s.Mode,
+                    MoodId = s.MoodId,
+                    MoodName = s.Mood != null ? s.Mood.Name : null,
                     Mood = s.Mood != null ? new MoodDto
                     {
                         Id = s.Mood.Id,
@@ -84,8 +93,10 @@ namespace MoodPlay.API.Services
                         ColorHex = s.Mood.ColorHex,
                         Category = s.Mood.Category
                     } : null,
+                    CustomPrompt = s.CustomPrompt,
                     DrinkLevel = s.DrinkLevel,
-                    StartedAt = s.StartedAt
+                    StartedAt = s.StartedAt,
+                    EndedAt = s.EndedAt
                 })
                 .ToListAsync();
         }

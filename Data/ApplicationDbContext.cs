@@ -27,6 +27,76 @@ namespace MoodPlay.API.Data
             modelBuilder.Entity<MoodSong>().ToTable("mood_songs");
             modelBuilder.Entity<UserSession>().ToTable("user_sessions");
 
+            // Configure User column mappings (PostgreSQL uses snake_case or lowercase)
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Email).HasColumnName("email");
+                entity.Property(e => e.Username).HasColumnName("username");
+                entity.Property(e => e.PasswordHash).HasColumnName("passwordhash");
+                entity.Property(e => e.DisplayName).HasColumnName("displayname");
+                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+                entity.Property(e => e.LastLogin).HasColumnName("lastlogin");
+                entity.Property(e => e.SpotifyId).HasColumnName("spotifyid");
+                entity.Property(e => e.SpotifyAccessToken).HasColumnName("spotifyaccesstoken");
+                entity.Property(e => e.AppleMusicId).HasColumnName("applemusicid");
+            });
+
+            // Configure Mood column mappings
+            modelBuilder.Entity<Mood>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Name).HasColumnName("name");
+                entity.Property(e => e.Slug).HasColumnName("slug");
+                entity.Property(e => e.Description).HasColumnName("description");
+                entity.Property(e => e.IconName).HasColumnName("iconname");
+                entity.Property(e => e.ColorHex).HasColumnName("colorhex");
+                entity.Property(e => e.Category).HasColumnName("category");
+                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+            });
+
+            // Configure Song column mappings
+            modelBuilder.Entity<Song>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Title).HasColumnName("title");
+                entity.Property(e => e.Artist).HasColumnName("artist");
+                entity.Property(e => e.Album).HasColumnName("album");
+                entity.Property(e => e.DurationSeconds).HasColumnName("durationseconds");
+                entity.Property(e => e.SpotifyUri).HasColumnName("spotifyuri");
+                entity.Property(e => e.AppleMusicId).HasColumnName("applemusicid");
+                entity.Property(e => e.ReleaseYear).HasColumnName("releaseyear");
+                entity.Property(e => e.Genre).HasColumnName("genre");
+                entity.Property(e => e.EnergyLevel).HasColumnName("energylevel");
+                entity.Property(e => e.Valence).HasColumnName("valence");
+                entity.Property(e => e.Danceability).HasColumnName("danceability");
+                entity.Property(e => e.Tempo).HasColumnName("tempo");
+                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+            });
+
+            // Configure MoodSong column mappings
+            modelBuilder.Entity<MoodSong>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.MoodId).HasColumnName("moodid");
+                entity.Property(e => e.SongId).HasColumnName("songid");
+                entity.Property(e => e.RelevanceScore).HasColumnName("relevancescore");
+                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+            });
+
+            // Configure UserSession column mappings
+            modelBuilder.Entity<UserSession>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.UserId).HasColumnName("userid");
+                entity.Property(e => e.Mode).HasColumnName("mode");
+                entity.Property(e => e.MoodId).HasColumnName("moodid");
+                entity.Property(e => e.CustomPrompt).HasColumnName("customprompt");
+                entity.Property(e => e.DrinkLevel).HasColumnName("drinklevel");
+                entity.Property(e => e.StartedAt).HasColumnName("startedat");
+                entity.Property(e => e.EndedAt).HasColumnName("endedat");
+            });
+
             // Configure unique constraints
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)

@@ -12,6 +12,6 @@ namespace MoodPlay.API.DTOs
         public DateTime StartedAt { get; set; }
         public DateTime? EndedAt { get; set; }
         public List<SongDto>? Songs { get; set; } // Optional: songs played in this session
-        public MoodDto? Mood { get; internal set; }
+        public MoodDto? Mood { get; set; }
     }
 }
