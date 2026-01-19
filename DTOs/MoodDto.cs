@@ -9,6 +9,5 @@ namespace MoodPlay.API.DTOs
         public string? IconName { get; set; }
         public string? ColorHex { get; set; }
         public string Category { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
     }
 }

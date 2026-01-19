@@ -41,8 +41,6 @@ namespace MoodPlay.API.Models
 
         public int? Tempo { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         // Navigation properties
         public virtual ICollection<MoodSong> MoodSongs { get; set; } = new List<MoodSong>();
     }

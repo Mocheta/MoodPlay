@@ -18,8 +18,6 @@ namespace MoodPlay.API.Models
         [Column(TypeName = "decimal(3,2)")]
         public decimal? RelevanceScore { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         // Navigation properties
         [ForeignKey("MoodId")]
         public virtual Mood Mood { get; set; } = null!;

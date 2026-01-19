@@ -40,10 +40,6 @@ namespace MoodPlay.API.Migrations
                         .HasColumnType("character varying(7)")
                         .HasColumnName("colorhex");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createdat");
-
                     b.Property<string>("Description")
                         .HasColumnType("text")
                         .HasColumnName("description");
@@ -79,10 +75,6 @@ namespace MoodPlay.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createdat");
 
                     b.Property<Guid>("MoodId")
                         .HasColumnType("uuid")
@@ -123,10 +115,6 @@ namespace MoodPlay.API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("artist");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createdat");
 
                     b.Property<decimal?>("Danceability")
                         .HasColumnType("decimal(3,2)")
@@ -179,10 +167,6 @@ namespace MoodPlay.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("createdat");
 
                     b.Property<string>("DisplayName")
                         .HasMaxLength(100)

@@ -35,7 +35,6 @@ namespace MoodPlay.API.Data
                 entity.Property(e => e.Username).HasColumnName("username");
                 entity.Property(e => e.PasswordHash).HasColumnName("passwordhash");
                 entity.Property(e => e.DisplayName).HasColumnName("displayname");
-                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
                 entity.Property(e => e.LastLogin).HasColumnName("lastlogin");
                 entity.Property(e => e.SpotifyId).HasColumnName("spotifyid");
                 entity.Property(e => e.SpotifyAccessToken).HasColumnName("spotifyaccesstoken");
@@ -51,7 +50,6 @@ namespace MoodPlay.API.Data
                 entity.Property(e => e.IconName).HasColumnName("iconname");
                 entity.Property(e => e.ColorHex).HasColumnName("colorhex");
                 entity.Property(e => e.Category).HasColumnName("category");
-                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
             });
 
             // Configure Song column mappings
@@ -69,7 +67,6 @@ namespace MoodPlay.API.Data
                 entity.Property(e => e.Valence).HasColumnName("valence");
                 entity.Property(e => e.Danceability).HasColumnName("danceability");
                 entity.Property(e => e.Tempo).HasColumnName("tempo");
-                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
             });
 
             // Configure MoodSong column mappings
@@ -79,7 +76,6 @@ namespace MoodPlay.API.Data
                 entity.Property(e => e.MoodId).HasColumnName("moodid");
                 entity.Property(e => e.SongId).HasColumnName("songid");
                 entity.Property(e => e.RelevanceScore).HasColumnName("relevancescore");
-                entity.Property(e => e.CreatedAt).HasColumnName("createdat");
             });
 
             // Configure UserSession column mappings

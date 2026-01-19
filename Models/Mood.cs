@@ -29,8 +29,6 @@ namespace MoodPlay.API.Models
         [MaxLength(10)]
         public string Category { get; set; } = string.Empty; // "sober" or "drunk"
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         // Navigation properties
         public virtual ICollection<MoodSong> MoodSongs { get; set; } = new List<MoodSong>();
         public virtual ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();
