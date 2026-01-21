@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MoodPlay.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260119194805_Buna")]
-    partial class Buna
+    [Migration("20260121193729_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,6 @@ namespace MoodPlay.API.Migrations
                         .HasMaxLength(7)
                         .HasColumnType("character varying(7)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -65,7 +62,7 @@ namespace MoodPlay.API.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("moods", (string)null);
+                    b.ToTable("moods");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.MoodSong", b =>
@@ -73,9 +70,6 @@ namespace MoodPlay.API.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("MoodId")
                         .HasColumnType("uuid");
@@ -93,7 +87,7 @@ namespace MoodPlay.API.Migrations
                     b.HasIndex("MoodId", "SongId")
                         .IsUnique();
 
-                    b.ToTable("mood_songs", (string)null);
+                    b.ToTable("mood_songs");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.Song", b =>
@@ -106,17 +100,10 @@ namespace MoodPlay.API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<string>("AppleMusicId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<string>("Artist")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("Danceability")
                         .HasColumnType("decimal(3,2)");
@@ -151,7 +138,7 @@ namespace MoodPlay.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("songs", (string)null);
+                    b.ToTable("songs");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.User", b =>
@@ -160,36 +147,15 @@ namespace MoodPlay.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AppleMusicId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DisplayName")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
-                    b.Property<DateTime?>("LastLogin")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
-
-                    b.Property<string>("SpotifyAccessToken")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SpotifyId")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -204,7 +170,7 @@ namespace MoodPlay.API.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.UserSession", b =>
@@ -242,7 +208,7 @@ namespace MoodPlay.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_sessions", (string)null);
+                    b.ToTable("user_sessions");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.MoodSong", b =>

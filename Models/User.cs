@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoodPlay.API.Models
 {
-    [Table("Users")]
+    [Table("users")]
     public class User
     {
         [Key]
@@ -21,6 +21,14 @@ namespace MoodPlay.API.Models
         [Required]
         [MaxLength(255)]
         public string PasswordHash { get; set; } = string.Empty;
+
+        // Spotify integration
+        [MaxLength(100)]
+        public string? SpotifyId { get; set; }
+
+        public string? SpotifyAccessToken { get; set; }
+
+        public string? SpotifyRefreshToken { get; set; }
 
         // Navigation properties
         public virtual ICollection<UserSession> UserSessions { get; set; } = new List<UserSession>();

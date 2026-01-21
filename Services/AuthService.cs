@@ -1,6 +1,4 @@
-﻿using BCrypt.Net;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MoodPlay.API.Data;
 using MoodPlay.API.DTOs;
@@ -25,8 +23,14 @@ namespace MoodPlay.API.Services
 
         public async Task<UserDto?> RegisterAsync(RegisterDto registerDto)
         {
-            // Check if user already exists
-            if (await _context.Users.AnyAsync(u => u.Email == registerDto.Email || u.Username == registerDto.Username))
+            // Check if email already exists
+            if (await _context.Users.AnyAsync(u => u.Email == registerDto.Email))
+            {
+                return null;
+            }
+
+            // Check if username already exists
+            if (await _context.Users.AnyAsync(u => u.Username == registerDto.Username))
             {
                 return null;
             }
@@ -45,7 +49,6 @@ namespace MoodPlay.API.Services
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            // Generate JWT token
             var token = GenerateJwtToken(user);
 
             return new UserDto
@@ -59,16 +62,14 @@ namespace MoodPlay.API.Services
 
         public async Task<UserDto?> LoginAsync(LoginDto loginDto)
         {
-            // Try to find user by username or email
             var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == loginDto.EmailOrUsername || u.Email == loginDto.EmailOrUsername);
+                .FirstOrDefaultAsync(u => u.Email == loginDto.EmailOrUsername || u.Username == loginDto.EmailOrUsername);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash))
             {
                 return null;
             }
 
-            // Generate JWT token
             var token = GenerateJwtToken(user);
 
             return new UserDto
@@ -80,35 +81,6 @@ namespace MoodPlay.API.Services
             };
         }
 
-        private string GenerateJwtToken(User user)
-        {
-            var jwtKey = _configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not configured");
-            var jwtIssuer = _configuration["Jwt:Issuer"] ?? "MoodPlayAPI";
-            var jwtAudience = _configuration["Jwt:Audience"] ?? "MoodPlayMobile";
-            var expirationMinutes = int.Parse(_configuration["Jwt:ExpirationMinutes"] ?? "1440");
-
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: jwtIssuer,
-                audience: jwtAudience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(expirationMinutes),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
         public async Task<User?> GetUserByIdAsync(Guid userId)
         {
             return await _context.Users.FindAsync(userId);
@@ -117,8 +89,7 @@ namespace MoodPlay.API.Services
         public async Task<UserDto?> GetUserDtoByIdAsync(Guid userId)
         {
             var user = await _context.Users.FindAsync(userId);
-            if (user == null)
-                return null;
+            if (user == null) return null;
 
             return new UserDto
             {
@@ -126,6 +97,35 @@ namespace MoodPlay.API.Services
                 Email = user.Email,
                 Username = user.Username
             };
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var key = _configuration["Jwt:Key"] ?? "YourSuperSecretKeyThatIsAtLeast32CharactersLong!";
+            var issuer = _configuration["Jwt:Issuer"] ?? "MoodPlayAPI";
+            var audience = _configuration["Jwt:Audience"] ?? "MoodPlayApp";
+            var expirationMinutes = int.Parse(_configuration["Jwt:ExpirationMinutes"] ?? "1440");
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var claims = new[]
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddMinutes(expirationMinutes),
+                signingCredentials: credentials
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

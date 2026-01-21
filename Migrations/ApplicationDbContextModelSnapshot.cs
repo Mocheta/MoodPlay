@@ -26,67 +26,56 @@ namespace MoodPlay.API.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Category")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("category");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<string>("ColorHex")
                         .HasMaxLength(7)
-                        .HasColumnType("character varying(7)")
-                        .HasColumnName("colorhex");
+                        .HasColumnType("character varying(7)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("text")
-                        .HasColumnName("description");
+                        .HasColumnType("text");
 
                     b.Property<string>("IconName")
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("iconname");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("name");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("Slug")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("slug");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("moods", (string)null);
+                    b.ToTable("moods");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.MoodSong", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("MoodId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("moodid");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal?>("RelevanceScore")
-                        .HasColumnType("decimal(3,2)")
-                        .HasColumnName("relevancescore");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<Guid>("SongId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("songid");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -95,96 +84,80 @@ namespace MoodPlay.API.Migrations
                     b.HasIndex("MoodId", "SongId")
                         .IsUnique();
 
-                    b.ToTable("mood_songs", (string)null);
+                    b.ToTable("mood_songs");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.Song", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Album")
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("album");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Artist")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("artist");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<decimal?>("Danceability")
-                        .HasColumnType("decimal(3,2)")
-                        .HasColumnName("danceability");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<int?>("DurationSeconds")
-                        .HasColumnType("integer")
-                        .HasColumnName("durationseconds");
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("EnergyLevel")
-                        .HasColumnType("decimal(3,2)")
-                        .HasColumnName("energylevel");
+                        .HasColumnType("decimal(3,2)");
 
                     b.Property<string>("Genre")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("genre");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int?>("ReleaseYear")
-                        .HasColumnType("integer")
-                        .HasColumnName("releaseyear");
+                        .HasColumnType("integer");
 
                     b.Property<string>("SpotifyUri")
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
-                        .HasColumnName("spotifyuri");
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int?>("Tempo")
-                        .HasColumnType("integer")
-                        .HasColumnName("tempo");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("title");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<decimal?>("Valence")
-                        .HasColumnType("decimal(3,2)")
-                        .HasColumnName("valence");
+                        .HasColumnType("decimal(3,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("songs", (string)null);
+                    b.ToTable("songs");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("email");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("character varying(255)")
-                        .HasColumnName("passwordhash");
+                        .HasColumnType("character varying(255)");
 
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasColumnName("username");
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -194,45 +167,37 @@ namespace MoodPlay.API.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("users", (string)null);
+                    b.ToTable("users");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.UserSession", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("CustomPrompt")
-                        .HasColumnType("text")
-                        .HasColumnName("customprompt");
+                        .HasColumnType("text");
 
                     b.Property<int?>("DrinkLevel")
-                        .HasColumnType("integer")
-                        .HasColumnName("drinklevel");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("EndedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("endedat");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Mode")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("character varying(10)")
-                        .HasColumnName("mode");
+                        .HasColumnType("character varying(10)");
 
                     b.Property<Guid?>("MoodId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("moodid");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("StartedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("startedat");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("userid");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -240,7 +205,7 @@ namespace MoodPlay.API.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("user_sessions", (string)null);
+                    b.ToTable("user_sessions");
                 });
 
             modelBuilder.Entity("MoodPlay.API.Models.MoodSong", b =>

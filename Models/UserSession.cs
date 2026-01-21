@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoodPlay.API.Models
 {
-    [Table("UserSessions")]
+    [Table("user_sessions")]
     public class UserSession
     {
         [Key]
@@ -14,7 +14,7 @@ namespace MoodPlay.API.Models
 
         [Required]
         [MaxLength(10)]
-        public string Mode { get; set; } = string.Empty; // "sober" or "drunk"
+        public string Mode { get; set; } = "sober";
 
         public Guid? MoodId { get; set; }
 

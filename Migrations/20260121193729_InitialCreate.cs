@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MoodPlay.API.Migrations
 {
     /// <inheritdoc />
-    public partial class Buna : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,8 +21,7 @@ namespace MoodPlay.API.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     IconName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     ColorHex = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: true),
-                    Category = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Category = table.Column<string>(type: "character varying(10)", maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,14 +38,12 @@ namespace MoodPlay.API.Migrations
                     Album = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     DurationSeconds = table.Column<int>(type: "integer", nullable: true),
                     SpotifyUri = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    AppleMusicId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     ReleaseYear = table.Column<int>(type: "integer", nullable: true),
                     Genre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     EnergyLevel = table.Column<decimal>(type: "numeric(3,2)", nullable: true),
                     Valence = table.Column<decimal>(type: "numeric(3,2)", nullable: true),
                     Danceability = table.Column<decimal>(type: "numeric(3,2)", nullable: true),
-                    Tempo = table.Column<int>(type: "integer", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Tempo = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,13 +57,7 @@ namespace MoodPlay.API.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    PasswordHash = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    DisplayName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastLogin = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    SpotifyId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    SpotifyAccessToken = table.Column<string>(type: "text", nullable: true),
-                    AppleMusicId = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    PasswordHash = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,8 +71,7 @@ namespace MoodPlay.API.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     MoodId = table.Column<Guid>(type: "uuid", nullable: false),
                     SongId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RelevanceScore = table.Column<decimal>(type: "numeric(3,2)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    RelevanceScore = table.Column<decimal>(type: "numeric(3,2)", nullable: true)
                 },
                 constraints: table =>
                 {

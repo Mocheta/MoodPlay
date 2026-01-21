@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoodPlay.API.Models
 {
-    [Table("Moods")]
+    [Table("moods")]
     public class Mood
     {
         [Key]
@@ -27,7 +27,7 @@ namespace MoodPlay.API.Models
 
         [Required]
         [MaxLength(10)]
-        public string Category { get; set; } = string.Empty; // "sober" or "drunk"
+        public string Category { get; set; } = "sober";
 
         // Navigation properties
         public virtual ICollection<MoodSong> MoodSongs { get; set; } = new List<MoodSong>();

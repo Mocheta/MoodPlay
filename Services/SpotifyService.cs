@@ -1,9 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MoodPlay.API.Data;
 using MoodPlay.API.DTOs;
 using MoodPlay.API.Services.Interfaces;
-using System.Text;
 using System.Text.Json;
 
 namespace MoodPlay.API.Services
@@ -15,8 +12,8 @@ namespace MoodPlay.API.Services
         private readonly HttpClient _httpClient;
         private readonly ILogger<SpotifyService> _logger;
 
-        private string ClientId => _configuration["Spotify:ClientId"] ?? throw new InvalidOperationException("Spotify ClientId not configured");
-        private string ClientSecret => _configuration["Spotify:ClientSecret"] ?? throw new InvalidOperationException("Spotify ClientSecret not configured");
+        private string ClientId => _configuration["Spotify:ClientId"] ?? "";
+        private string ClientSecret => _configuration["Spotify:ClientSecret"] ?? "";
         private string RedirectUri => _configuration["Spotify:RedirectUri"] ?? "http://localhost:7169/api/spotify/callback";
 
         public SpotifyService(
@@ -34,7 +31,7 @@ namespace MoodPlay.API.Services
         public Task<string> GetAuthorizationUrlAsync(string? redirectUri = null)
         {
             var redirect = redirectUri ?? RedirectUri;
-            var scopes = "user-read-email user-read-private user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-read-private playlist-read-collaborative playlist-modify-public playlist-modify-private";
+            var scopes = "user-read-email user-read-private user-read-playback-state user-modify-playback-state";
             var state = Guid.NewGuid().ToString();
 
             var authUrl = $"https://accounts.spotify.com/authorize?" +
@@ -72,12 +69,10 @@ namespace MoodPlay.API.Services
                 response.EnsureSuccessStatusCode();
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonResponse, new JsonSerializerOptions
+                return JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonResponse, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
-
-                return tokenResponse;
             }
             catch (Exception ex)
             {
@@ -109,12 +104,10 @@ namespace MoodPlay.API.Services
                 response.EnsureSuccessStatusCode();
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                var tokenResponse = JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonResponse, new JsonSerializerOptions
+                return JsonSerializer.Deserialize<SpotifyTokenResponse>(jsonResponse, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
-
-                return tokenResponse;
             }
             catch (Exception ex)
             {
@@ -134,12 +127,10 @@ namespace MoodPlay.API.Services
                 response.EnsureSuccessStatusCode();
 
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                var userInfo = JsonSerializer.Deserialize<SpotifyUserInfo>(jsonResponse, new JsonSerializerOptions
+                return JsonSerializer.Deserialize<SpotifyUserInfo>(jsonResponse, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 });
-
-                return userInfo;
             }
             catch (Exception ex)
             {
@@ -156,14 +147,17 @@ namespace MoodPlay.API.Services
                 if (user == null)
                     return false;
 
-                // Spotify integration columns removed - functionality disabled
-                await _context.SaveChangesAsync();
+                user.SpotifyId = spotifyId;
+                user.SpotifyAccessToken = accessToken;
+                user.SpotifyRefreshToken = refreshToken;
 
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Connected Spotify account {SpotifyId} for user {UserId}", spotifyId, userId);
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error connecting Spotify account");
+                _logger.LogError(ex, "Error connecting Spotify account for user {UserId}", userId);
                 return false;
             }
         }
@@ -176,14 +170,17 @@ namespace MoodPlay.API.Services
                 if (user == null)
                     return false;
 
-                // Spotify integration columns removed - functionality disabled
-                await _context.SaveChangesAsync();
+                user.SpotifyId = null;
+                user.SpotifyAccessToken = null;
+                user.SpotifyRefreshToken = null;
 
+                await _context.SaveChangesAsync();
+                _logger.LogInformation("Disconnected Spotify account for user {UserId}", userId);
                 return true;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error disconnecting Spotify account");
+                _logger.LogError(ex, "Error disconnecting Spotify account for user {UserId}", userId);
                 return false;
             }
         }

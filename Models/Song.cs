@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MoodPlay.API.Models
 {
-    [Table("Songs")]
+    [Table("songs")]
     public class Song
     {
         [Key]
